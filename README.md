@@ -28,7 +28,7 @@ Here’s a snapshot of the technologies and tools I’m familiar with:
 
 ## 🔗 Connect with Me
 
-- 💼 **LinkedIn**: jesaldave(https://www.linkedin.com/in/jesaldave) – Let’s connect and network!
+- 💼 **LinkedIn**: [jesaldave](https://www.linkedin.com/in/jesaldave) – Let’s connect and network!
 - 📧 **Email**: jesaldave.dev@gmail.com – Feel free to reach out for any inquiries or discussions.
 
 ## 🚀 What’s Next?
