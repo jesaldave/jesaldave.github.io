@@ -1,8 +1,4 @@
-Absolutely! Here’s a polished and engaging GitHub README based on your points, with some added flair to make it more visually appealing and informative:
-
----
-
-### Hello World! 🌍 I'm Jesal👋
+## Hello World! 🌍 I'm Jesal👋
 
 Welcome to my GitHub portfolio! I’m an enthusiastic undergraduate student with a deep passion for programming and technology. In addition to coding, I’m also an avid 3D modeler and graphic designer. Dive into my world of code and creativity below!
 
