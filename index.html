@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM BREACH | JESAL DAVE</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-green: #00ff41;
+            --cyber-orange: #ff8c00;
+            --data-cyan: #00e5ff;
+            --high-voltage-purple: #bc13fe;
+            --code-red: #ff003c;
+            --community-gold: #ffcc00;
+            --bg-black: #050505;
+        }
+
+        * { box-sizing: border-box; }
+        body, html {
+            background-color: var(--bg-black);
+            color: var(--neon-green);
+            font-family: 'JetBrains Mono', monospace;
+            margin: 0; padding: 0;
+            height: 100vh; width: 100vw;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- NEW: BACKGROUND CANVAS --- */
+        #binary-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 0; /* Sits right above background color */
+            opacity: 0.15; /* Very subtle opacity */
+            pointer-events: none;
+        }
+
+        /* --- EXISTING CRT OVERLAY --- */
+        body::after {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+            z-index: 5000; /* Sits on top of everything */
+            background-size: 100% 2px;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        #breach-layer {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-black);
+            z-index: 4000;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            transition: opacity 0.5s ease;
+        }
+
+        #log-container {
+            width: 100%; height: 100%;
+            font-size: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .log-line { margin-bottom: 2px; opacity: 0.9; white-space: nowrap; }
+
+        #cracking-ui {
+            display: none;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+            background: var(--bg-black);
+            padding: 30px;
+            border: 1px solid var(--neon-green);
+            box-shadow: 0 0 50px rgba(0, 255, 65, 0.2);
+        }
+
+        #dashboard {
+            display: none;
+            position: relative; /* Added to ensure z-index works */
+            z-index: 10; /* Sits above the binary canvas */
+            height: auto; 
+            width: 100%;
+            max-width: 1200px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        header { 
+            text-align: center; 
+            margin-bottom: 30px; 
+            width: 100%; 
+        }
+        
+        h1 { font-size: 2.8rem; letter-spacing: 10px; margin: 0; color: #fff; }
+        .sub-header { opacity: 0.8; font-size: 0.9rem; margin-top: 10px; letter-spacing: 1px; }
+        .aws-tag { color: var(--data-cyan); font-weight: bold; }
+        
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            border: 1px solid #222;
+            padding: 30px;
+            text-decoration: none;
+            transition: 0.3s ease;
+            background: rgba(255, 255, 255, 0.01);
+            /* Ensure cards are opaque enough to read over background */
+            backdrop-filter: blur(2px); 
+        }
+
+        /* CARD THEMES */
+        .card.green { color: var(--neon-green); }
+        .card.green:hover { border-color: var(--neon-green); background: rgba(0, 255, 65, 0.05); }
+        
+        .card.orange { color: var(--cyber-orange); }
+        .card.orange:hover { border-color: var(--cyber-orange); background: rgba(255, 140, 0, 0.05); }
+        
+        .card.cyan { color: var(--data-cyan); }
+        .card.cyan:hover { border-color: var(--data-cyan); background: rgba(0, 229, 255, 0.05); }
+        
+        .card.purple { color: var(--high-voltage-purple); }
+        .card.purple:hover { border-color: var(--high-voltage-purple); background: rgba(188, 19, 254, 0.05); }
+
+        .card.red { color: var(--code-red); }
+        .card.red:hover { border-color: var(--code-red); background: rgba(255, 0, 60, 0.05); }
+
+        .card.gold { color: var(--community-gold); }
+        .card.gold:hover { border-color: var(--community-gold); background: rgba(255, 204, 0, 0.05); }
+
+        .card h3 { margin: 0; font-size: 1.2rem; letter-spacing: 3px; }
+        .card p { margin: 15px 0 0 0; font-size: 0.85rem; opacity: 0.7; line-height: 1.6; }
+
+        .social-array {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .social-btn {
+            text-decoration: none;
+            color: #888;
+            border: 1px solid #333;
+            padding: 8px 18px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.02);
+            text-transform: uppercase;
+        }
+
+        .social-btn:hover {
+            color: #fff;
+            border-color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- WIP SYSTEM LOG TEXT --- */
+        .system-status {
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            opacity: 0.3;
+            text-transform: uppercase;
+            text-align: center;
+            width: 100%;
+            margin-top: 10px;
+            animation: blink 3s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.4; }
+        }
+
+        @media (max-width: 800px) {
+            h1 { font-size: 2rem; letter-spacing: 5px; }
+            .nav-grid { grid-template-columns: 1fr; }
+            #dashboard { overflow-y: auto; justify-content: flex-start; padding-top: 40px; height: 100vh; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="binary-canvas"></canvas>
+
+    <div id="breach-layer">
+        <div id="log-container"></div>
+        <div id="cracking-ui">
+            <div style="font-size: 1.2rem; letter-spacing: 5px; margin-bottom: 20px;">OVERRIDING FIREWALL</div>
+            <div style="width:100%; border:1px solid var(--neon-green); height:24px; padding:3px;">
+                <div id="progress-bar" style="height:100%; background:var(--neon-green); width:0%;"></div>
+            </div>
+            <div id="percent-text" style="margin-top: 10px; font-size: 1rem;">0%</div>
+        </div>
+    </div>
+
+    <div id="dashboard">
+        <header>
+            <h1>JESAL DAVE</h1>
+            <div class="sub-header">
+                ELECTRONICS & COMMUNICATION // <span class="aws-tag">AWS CERTIFIED CLOUD PRACTITIONER</span> // ROOT_USER
+            </div>
+        </header>
+
+        <div class="nav-grid">
+            <a href="vaults.html" class="card green">
+                <h3>[ DATA_VAULTS ]</h3>
+                <p>Reverse-engineering logs: 37W Charger project & LocalForge archives.</p>
+            </a>
+            <a href="schematics.html" class="card purple">
+                <h3>[ SCHEMATICS ]</h3>
+                <p>Hardware layout logs: KiCAD PCB designs & 3D circuit modeling.</p>
+            </a>
+            <a href="firmware.html" class="card red">
+                <h3>[ FIRMWARE ]</h3>
+                <p>Embedded systems logic: STM32 bare-metal & ARM architecture.</p>
+            </a>
+            <a href="user_identity.html" class="card cyan">
+                <h3>[ USER_IDENTITY ]</h3>
+                <p>Academic profile: CE Diploma to EC B.Tech transition records.</p>
+            </a>
+            <a href="blog.html" class="card orange">
+                <h3>[ COGITATOR_LOGS ]</h3>
+                <p>Tech blog: Deep dives into VLSI, IoT reverse-engineering, and engineering insights.</p>
+            </a>
+            <a href="joincommunity.html" class="card gold">
+                <h3>[ JOIN_COMMUNITY ]</h3>
+                <p>LocalForge initiative: Reverse-engineering for a "Made in India" future.</p>
+            </a>
+        </div>
+
+        <div class="social-array">
+            <a href="https://www.linkedin.com/in/jesal-dave/" target="_blank" class="social-btn">LINKEDIN</a>
+            <a href="https://github.com/jesaldave" class="social-btn">GITHUB</a>
+            <a href="https://discord.com/users/kaguya.1337" class="social-btn">DISCORD</a>
+            <a href="https://x.com/Jesal7077" class="social-btn">X_STATION</a>
+	    <a href="https://www.reddit.com/user/JESALDAVE/submitted/" class="social-btn">REDDIT</a>
+        </div>
+
+        <div class="system-status">
+            SYSTEM_SYNC: ACTIVE // CORE_MODULES_UPDATING... // READY_FOR_DECRYPTION
+        </div>
+    </div>
+
+<script>
+    // --- EXISTING BREACH SCRIPT ---
+    const logBox = document.getElementById('log-container');
+    const crackUI = document.getElementById('cracking-ui');
+    const bar = document.getElementById('progress-bar');
+    const percent = document.getElementById('percent-text');
+    const dashboard = document.getElementById('dashboard');
+    const breachLayer = document.getElementById('breach-layer');
+
+    const logs = [
+    "INITIALIZING EXPLOIT KERNEL...", 
+    "LOCATING GATEWAY 192.168.1.1...", 
+    "BYPASSING BIOS_LOCK...",
+    "INJECTING SHELLCODE...", 
+    "SPOOFING MAC: 00:1A:2B:3C:4D:5E...", 
+    "SCANNING PORTS...",
+    "PORT 443: OPEN", 
+    "EXPLOITING SSL_VULNERABILITY...", 
+    "ESTABLISHING BACKDOOR...",
+    "UID=0(ROOT) GID=0(ROOT)", 
+    "FIREWALL BREACH STARTED...",
+    "---------------------------------",
+    "INTERCEPTING HANDSHAKE PACKETS...",
+    "ENABLING PROMISCUOUS MODE ON ETH0...",
+    "S3_BUCKET_SCAN: 4 BUCKETS DISCOVERED",
+    "IAM_ROLE_OVERRIDE: ATTEMPTING PRIVILEGE ESCALATION...",
+    "AWS_CLOUDTRAIL_LOGS: SUPPRESSED",
+    "ATTACHING JTAG DEBUGGER TO TARGET...",
+    "STM32_PERIPHERAL_CLOCK: ENABLED",
+    "DUMPING FIRMWARE FROM FLASH @ 0x08000000...",
+    "DECRYPTING HC2022A LOGIC GATES...",
+    "LOCALFORGE_SIGNATURE: VERIFIED",
+    "OVERRIDING GPIO_PIN_MAPPING...",
+    "ARM_CORTEX_M4: HALTING EXECUTION...",
+    "VIRTUAL_MACHINE_ESCAPE: SUCCESSFUL",
+    "SQL_INJECTION: BYPASSING ADMIN_AUTH...",
+    "KERNEL_PANIC: PREVENTED",
+    "SYSTEM_ACCESS: GRANTED"
+];
+
+    function checkSession() {
+        if (sessionStorage.getItem('breached') === 'true') {
+            breachLayer.style.display = 'none';
+            dashboard.style.display = 'flex';
+            dashboard.style.opacity = '1';
+            initBinaryRain(); // Start rain immediately if already breached
+        } else {
+            runLogs();
+        }
+    }
+
+    let logIdx = 0;
+    function runLogs() {
+        if (logIdx < logs.length) {
+            const p = document.createElement('div');
+            p.className = 'log-line';
+            p.textContent = `[${new Date().toLocaleTimeString()}] > ${logs[logIdx]}`;
+            logBox.appendChild(p);
+            logIdx++;
+            logBox.scrollTop = logBox.scrollHeight;
+            setTimeout(runLogs, 50);
+        } else {
+            setTimeout(() => {
+                crackUI.style.display = 'block';
+                startCracking();
+            }, 300);
+        }
+    }
+
+    function startCracking() {
+        let width = 0;
+        const interval = setInterval(() => {
+            if (width >= 100) {
+                clearInterval(interval);
+                sessionStorage.setItem('breached', 'true');
+                revealSite();
+            } else {
+                width += Math.random() * 8;
+                if (width > 100) width = 100;
+                bar.style.width = width + '%';
+                percent.textContent = Math.floor(width) + '%';
+            }
+        }, 80);
+    }
+
+    function revealSite() {
+        breachLayer.style.opacity = '0';
+        setTimeout(() => {
+            breachLayer.style.display = 'none';
+            dashboard.style.display = 'flex';
+            setTimeout(() => { 
+                dashboard.style.opacity = '1'; 
+                initBinaryRain(); // Start rain after breach animation
+            }, 50);
+        }, 500);
+    }
+
+    window.onload = checkSession;
+
+    // --- NEW BINARY RAIN SCRIPT ---
+    function initBinaryRain() {
+        const canvas = document.getElementById('binary-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const binary = "01";
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+
+        const drops = [];
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function draw() {
+            //Subtle fade effect for trails
+            ctx.fillStyle = "rgba(5, 5, 5, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#00ff41"; // Neon Green text color
+            ctx.font = fontSize + "px 'JetBrains Mono'";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = binary.charAt(Math.floor(Math.random() * binary.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                // Randomly reset drops to top
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 35); // Speed of falling
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    }
+</script>
+</body>
+</html>
