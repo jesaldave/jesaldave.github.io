@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404: SECTOR_NOT_FOUND</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --alert-red: #ff003c;
+            --bg-black: #050505;
+            --dim-red: #2a000a;
+        }
+
+        body, html {
+            background-color: var(--bg-black);
+            color: var(--alert-red);
+            font-family: 'JetBrains Mono', monospace;
+            margin: 0; padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* --- NEW: GLITCH RAIN CANVAS --- */
+        #glitch-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 0; /* Sits right above background color */
+            opacity: 0.3; /* Visible but not overwhelming */
+            pointer-events: none;
+        }
+
+        /* --- MAIN CONTENT WRAPPER (To sit above canvas) --- */
+        .content-wrapper {
+            position: relative;
+            z-index: 10; /* Ensures content is above the rain */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- EXISTING GLITCH ANIMATION --- */
+        .glitch {
+            font-size: 8rem;
+            font-weight: 700;
+            position: relative;
+            text-shadow: 0.05em 0 0 rgba(255, 0, 60, 0.75),
+                         -0.025em -0.05em 0 rgba(0, 229, 255, 0.75),
+                         0.025em 0.05em 0 rgba(188, 19, 254, 0.75);
+            animation: glitch 500ms infinite;
+        }
+
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 rgba(255, 0, 60, 0.75), -0.05em -0.025em 0 rgba(0, 229, 255, 0.75); }
+            14% { text-shadow: 0.05em 0 0 rgba(255, 0, 60, 0.75), -0.05em -0.025em 0 rgba(0, 229, 255, 0.75); }
+            15% { text-shadow: -0.05em -0.025em 0 rgba(255, 0, 60, 0.75), 0.025em 0.025em 0 rgba(0, 229, 255, 0.75); }
+            49% { text-shadow: -0.05em -0.025em 0 rgba(255, 0, 60, 0.75), 0.025em 0.025em 0 rgba(0, 229, 255, 0.75); }
+            50% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 60, 0.75), 0.05em 0 0 rgba(0, 229, 255, 0.75); }
+            99% { text-shadow: 0.025em 0.05em 0 rgba(255, 0, 60, 0.75), 0.05em 0 0 rgba(0, 229, 255, 0.75); }
+            100% { text-shadow: -0.025em 0 0 rgba(255, 0, 60, 0.75), -0.025em -0.025em 0 rgba(0, 229, 255, 0.75); }
+        }
+
+        .terminal-box {
+            border: 1px solid var(--alert-red);
+            background: rgba(255, 0, 60, 0.05); /* Slightly increased opacity for contrast */
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            text-align: left;
+            margin-top: 20px;
+            box-shadow: 0 0 30px rgba(255, 0, 60, 0.2);
+            backdrop-filter: blur(2px); /* Blurs rain behind the box */
+        }
+
+        .code-row { font-size: 0.8rem; margin-bottom: 5px; opacity: 0.9; }
+        .highlight { color: #fff; font-weight: bold; }
+
+        .back-link {
+            margin-top: 40px;
+            color: #fff;
+            text-decoration: none;
+            border: 1px solid #fff;
+            padding: 10px 25px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            transition: 0.3s;
+            background: rgba(0,0,0,0.5); /* Make button readable over rain */
+        }
+
+        .back-link:hover {
+            background: var(--alert-red);
+            border-color: var(--alert-red);
+            color: var(--bg-black);
+            box-shadow: 0 0 20px var(--alert-red);
+        }
+
+        /* Background Scanline/Static effect - Sits on top of everything */
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 1px, transparent 1px, transparent 2px);
+            pointer-events: none;
+            z-index: 20;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="glitch-canvas"></canvas>
+
+    <div class="content-wrapper">
+        <div class="glitch" data-text="404">404</div>
+        
+        <div class="terminal-box">
+            <div class="code-row">> <span class="highlight">ERROR:</span> TARGET_ADDRESS_NOT_FOUND</div>
+            <div class="code-row">> <span class="highlight">LOCATION:</span> UNALLOCATED_MEMORY_SECTOR</div>
+            <div class="code-row">> <span class="highlight">STATUS:</span> CORE_DUMP_IN_PROGRESS...</div>
+            <div class="code-row">> ---------------------------------------</div>
+            <div class="code-row">> STACK_TRACE: 0x0800F210 -> INVALID_PTR</div>
+            <div class="code-row">> ARM_CORE_M4: ACCESS_VIOLATION_DETECTED</div>
+            <div class="code-row">> LOCALFORGE_ENCRYPTION: INTEGRITY_FAIL</div>
+            <div class="code-row">> DISCONNECTING FROM UNAUTHORIZED NODE...</div>
+        </div>
+
+        <a href="index.html" class="back-link">_RETURN_TO_SAFE_ZONE</a>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('glitch-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas to full screen
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Characters to drop: Hex + some cryptic symbols for "glitchiness"
+        const chars = '0123456789ABCDEFXYZ@#&§¥$'; 
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+
+        // Initialize drops vertically
+        const drops = [];
+        for (let x = 0; x < columns; x++) {
+            drops[x] = Math.random() * canvas.height / fontSize;
+        }
+
+        function draw() {
+            // Dark red fade for trails
+            ctx.fillStyle = 'rgba(10, 0, 0, 0.1)'; 
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.font = fontSize + "px 'JetBrains Mono', monospace";
+
+            for (let i = 0; i < drops.length; i++) {
+                // Randomly choose a character
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                
+                // GLITCH EFFECT: Randomly flash brighter colors
+                const isGlitch = Math.random() > 0.98;
+                ctx.fillStyle = isGlitch ? '#ff8095' : '#ff003c'; // Bright pink/red vs standard red
+
+                // GLITCH EFFECT: Slight horizontal jitter
+                const jitterX = (Math.random() - 0.5) * 3;
+
+                ctx.fillText(text, i * fontSize + jitterX, drops[i] * fontSize);
+
+                // Send drop back to top randomly after it crosses bottom
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+
+                // Move drop down
+                drops[i]++;
+            }
+        }
+
+        // Animate loop
+        setInterval(draw, 45);
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>

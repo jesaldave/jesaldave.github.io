@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIRMWARE | JESAL DAVE</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --code-red: #ff003c;
+            --dim-red: #2a000a;
+            --bg-black: #050505;
+            --border-gray: #222;
+        }
+
+        body, html {
+            background-color: var(--bg-black);
+            color: var(--code-red);
+            font-family: 'JetBrains Mono', monospace;
+            margin: 0; padding: 0;
+            line-height: 1.6;
+        }
+
+        /* --- CRT SCANLINE EFFECT --- */
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+            background-size: 100% 2px;
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0.2;
+        }
+
+        #container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            border-bottom: 1px solid var(--code-red);
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 { font-size: 1.8rem; letter-spacing: 5px; margin: 0; text-transform: uppercase; color: #fff; }
+
+        .exit-btn {
+            text-decoration: none;
+            color: var(--bg-black);
+            background: var(--code-red);
+            padding: 10px 20px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            border: 1px solid var(--code-red);
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .exit-btn:hover {
+            background: transparent;
+            color: var(--code-red);
+            box-shadow: 0 0 15px var(--code-red);
+        }
+
+        /* --- CODE ARTICLE STYLING --- */
+        .article-card {
+            border: 1px solid var(--border-gray);
+            background: rgba(255, 0, 60, 0.02);
+            margin-bottom: 40px;
+            padding: 25px;
+            transition: 0.3s;
+        }
+
+        .article-card:hover {
+            border-color: var(--code-red);
+        }
+
+        .article-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--dim-red);
+            padding-bottom: 10px;
+        }
+
+        .article-title { font-size: 1.1rem; font-weight: 700; color: #fff; }
+        .chip-tag { font-size: 0.7rem; color: var(--code-red); border: 1px solid var(--code-red); padding: 2px 8px; }
+
+        .code-block {
+            background: #0a0a0a;
+            padding: 20px;
+            border: 1px solid #1a1a1a;
+            font-size: 0.85rem;
+            color: #ccc;
+            overflow-x: auto;
+            white-space: pre;
+            line-height: 1.5;
+        }
+
+        .comment { color: #555; font-style: italic; }
+        .keyword { color: var(--code-red); font-weight: bold; }
+        .hex { color: #ff8c00; }
+
+        .wip-tag {
+            display: block;
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.7rem;
+            letter-spacing: 4px;
+            opacity: 0.5;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <header>
+        <h1>[ FIRMWARE_LOGS ]</h1>
+        <a href="index.html" class="exit-btn">_EXIT_TO_DASHBOARD</a>
+    </header>
+
+    <article class="article-card">
+        <div class="article-header">
+            <div class="article-title">0x01: STM32L432KC Bare-Metal Blink</div>
+            <span class="chip-tag">ARM CORTEX-M4</span>
+        </div>
+        <p style="font-size: 0.85rem; margin-bottom: 15px; opacity: 0.8;">
+            Direct register manipulation for GPIO toggling. Bypassing HAL for maximum execution efficiency.
+        </p>
+        <div class="code-block">
+<span class="comment">// Enable GPIOB Clock (RCC_AHB2ENR)</span>
+RCC->AHB2ENR |= (<span class="hex">1U</span> << <span class="hex">1</span>);
+
+<span class="comment">// Set PB3 to Output Mode (GPIO_MODER)</span>
+GPIOB->MODER &= ~(<span class="hex">3U</span> << (<span class="hex">3</span> * <span class="hex">2</span>));
+GPIOB->MODER |= (<span class="hex">1U</span> << (<span class="hex">3</span> * <span class="hex">2</span>));
+
+<span class="keyword">while</span>(<span class="hex">1</span>) {
+    GPIOB->ODR ^= (<span class="hex">1U</span> << <span class="hex">3</span>); <span class="comment">// Toggle LED on PB3</span>
+    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="hex">0</span>; i < <span class="hex">100000</span>; i++); <span class="comment">// Simple Delay</span>
+}</div>
+    </article>
+
+    <article class="article-card">
+        <div class="article-header">
+            <div class="article-title">0x02: NVIC Interrupt Configuration</div>
+            <span class="chip-tag">STM32F411</span>
+        </div>
+        <p style="font-size: 0.85rem; margin-bottom: 15px; opacity: 0.8;">
+            Configuring External Interrupt (EXTI) for real-time button debouncing via hardware priority.
+        </p>
+        <div class="code-block">
+<span class="comment">// Configure NVIC for EXTI Line 0</span>
+NVIC_SetPriority(EXTI0_IRQn, <span class="hex">0x03</span>);
+NVIC_EnableIRQ(EXTI0_IRQn);
+
+<span class="keyword">void</span> <span class="keyword">EXTI0_IRQHandler</span>(<span class="keyword">void</span>) {
+    <span class="keyword">if</span> (EXTI->PR & (<span class="hex">1U</span> << <span class="hex">0</span>)) {
+        EXTI->PR |= (<span class="hex">1U</span> << <span class="hex">0</span>); <span class="comment">// Clear Pending Bit</span>
+        system_trigger_event();
+    }
+}</div>
+    </article>
+
+    <div class="wip-tag">--- SYSTEM_STILL_UPLOADING_ADDITIONAL_KERNEL_LOGS ---</div>
+</div>
+
+</body>
+</html>

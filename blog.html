@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COGITATOR_LOGS | JESAL DAVE</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-green: #00ff41;
+            --cyber-orange: #ff8c00;
+            --bg-black: #050505;
+            --border-gray: #222;
+        }
+
+        body, html {
+            background-color: var(--bg-black);
+            font-family: 'JetBrains Mono', monospace;
+            margin: 0; padding: 0;
+            line-height: 1.6;
+            color: #fff;
+        }
+
+        /* CRT Overlay */
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+            background-size: 100% 2px;
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0.2;
+        }
+
+        #container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            border-bottom: 1px solid var(--cyber-orange);
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        h1 { font-size: 1.5rem; letter-spacing: 5px; margin: 0; text-transform: uppercase; }
+
+        /* --- BIG EXIT BUTTON --- */
+        .exit-btn {
+            text-decoration: none;
+            color: var(--bg-black);
+            background: var(--cyber-orange);
+            padding: 12px 25px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            border: 1px solid var(--cyber-orange);
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .exit-btn:hover {
+            background: transparent;
+            color: var(--cyber-orange);
+            box-shadow: 0 0 15px var(--cyber-orange);
+        }
+
+        .log-columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+        }
+
+        .column-header {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 25px;
+            padding: 5px 10px;
+            display: inline-block;
+        }
+
+        /* --- CATEGORY 1: SYSTEM LOGS (GREEN) --- */
+        .system-logs .column-header { 
+            border: 1px solid var(--neon-green); 
+            color: var(--neon-green);
+        }
+
+        .log-card {
+            border-left: 2px solid var(--neon-green);
+            padding: 15px;
+            margin-bottom: 20px;
+            background: rgba(0, 255, 65, 0.02);
+            font-size: 0.85rem;
+        }
+
+        .log-card .date { color: var(--neon-green); opacity: 0.7; font-size: 0.75rem; }
+
+        /* --- CATEGORY 2: COGNITIVE BLOGS (ORANGE) --- */
+        .cognitive-blogs .column-header { 
+            border: 1px solid var(--cyber-orange); 
+            color: var(--cyber-orange);
+        }
+
+        .blog-card {
+            border: 1px solid var(--border-gray);
+            padding: 20px;
+            margin-bottom: 20px;
+            background: rgba(255, 140, 0, 0.03);
+            transition: 0.3s;
+        }
+
+        .blog-card:hover { border-color: var(--cyber-orange); }
+        .blog-card .title { color: var(--cyber-orange); font-weight: 700; display: block; margin-bottom: 10px; text-decoration: none; }
+        .blog-card .date { opacity: 0.5; font-size: 0.75rem; }
+
+        @media (max-width: 600px) {
+            header { flex-direction: column; align-items: flex-start; }
+            .exit-btn { width: 100%; text-align: center; }
+            .log-columns { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <header>
+        <h1>[ COGITATOR_ARCHIVE ]</h1>
+        <a href="index.html" class="exit-btn">_EXIT_TO_DASHBOARD</a>
+    </header>
+
+    <div class="log-columns">
+        
+        <section class="system-logs">
+            <div class="column-header">01_SYSTEM_LOGS</div>
+            
+            <div class="log-card">
+                <div class="date">2026.01.23 // 11:45</div>
+                > HC2022A reverse-engineering phase 2 initiated. 
+                > LocalForge community server reaching 100+ nodes.
+            </div>
+
+            <div class="log-card">
+                <div class="date">2026.01.21 // 09:12</div>
+                > AWS Certified Cloud Practitioner exam passed.
+            </div>
+        </section>
+
+        <section class="cognitive-blogs">
+            <div class="column-header">02_COGNITIVE_LOGS</div>
+            
+            <article class="blog-card">
+                <span class="date">2026.01.24</span>
+                <a href="#" class="title">Scalable VLSI & The Indian Market</a>
+                <p style="font-size: 0.85rem; opacity: 0.8;">
+                    Discussing why reverse-engineering is the first step toward indigenous circuit architecture.
+                </p>
+            </article>
+
+            <article class="blog-card">
+                <span class="date">2026.01.18</span>
+                <a href="#" class="title">Bare-Metal: Why STM32 Still Rules</a>
+                <p style="font-size: 0.85rem; opacity: 0.8;">
+                    My journey from HAL libraries to direct register manipulation.
+                </p>
+            </article>
+        </section>
+    </div>
+</div>
+
+</body>
+</html>

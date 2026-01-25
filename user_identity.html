@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDENTITY_DOCS | JESAL DAVE</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --data-cyan: #00e5ff;
+            --dim-cyan: #003a42;
+            --bg-black: #050505;
+            --border-gray: #222;
+        }
+
+        body, html {
+            background-color: var(--bg-black);
+            color: var(--data-cyan);
+            font-family: 'JetBrains Mono', monospace;
+            margin: 0; padding: 0;
+            line-height: 1.6;
+        }
+
+        /* CRT Overlay */
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+            background-size: 100% 2px;
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0.2;
+        }
+
+        #container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            border-bottom: 1px solid var(--data-cyan);
+            margin-bottom: 40px;
+            padding-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        h1 { font-size: 1.8rem; letter-spacing: 5px; margin: 0; text-transform: uppercase; color: #fff; }
+
+        /* --- BIG EXIT BUTTON (CYAN VARIANT) --- */
+        .exit-btn {
+            text-decoration: none;
+            color: var(--bg-black);
+            background: var(--data-cyan);
+            padding: 12px 25px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            border: 1px solid var(--data-cyan);
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .exit-btn:hover {
+            background: transparent;
+            color: var(--data-cyan);
+            box-shadow: 0 0 15px var(--data-cyan);
+        }
+
+        .section { margin-bottom: 50px; }
+
+        .section-header {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-header::before { content: "> "; margin-right: 10px; }
+
+        .credential-card {
+            border: 1px solid var(--border-gray);
+            padding: 25px;
+            margin-bottom: 20px;
+            background: rgba(0, 229, 255, 0.03);
+            transition: 0.3s;
+        }
+
+        .credential-card:hover {
+            border-color: var(--data-cyan);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.1);
+        }
+
+        .title { font-weight: 700; font-size: 1.1rem; color: #fff; }
+        .org { font-size: 0.9rem; opacity: 0.8; margin: 5px 0; }
+        
+        .badge-link {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 15px;
+            padding: 8px 12px;
+            background: var(--dim-cyan);
+            color: var(--data-cyan);
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 1px solid var(--data-cyan);
+        }
+
+        .badge-link:hover {
+            background: var(--data-cyan);
+            color: var(--bg-black);
+        }
+
+        .status-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            font-size: 0.7rem;
+            border: 1px solid var(--data-cyan);
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 600px) {
+            header { flex-direction: column; align-items: flex-start; }
+            .exit-btn { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <header>
+        <h1>[ IDENTITY_DOCS ]</h1>
+        <a href="index.html" class="exit-btn">_EXIT_TO_DASHBOARD</a>
+    </header>
+
+    <div class="section">
+        <div class="section-header">Verified_Access</div>
+        <div class="credential-card">
+            <div class="title">AWS Certified Cloud Practitioner</div>
+            <div class="org">Amazon Web Services (AWS)</div>
+            <div class="status-tag">ACTIVE_VALIDATED</div>
+            <p style="font-size: 0.85rem; margin-top: 15px; color: var(--data-cyan);">
+                Successfully completed the CLF-C02 examination requirements.
+            </p>
+            <a href="https://www.credly.com/badges/1610b145-9e65-433a-bde8-12ad453c2a19" target="_blank" class="badge-link">[ VIEW_OFFICIAL_BADGE ]</a>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-header">Academic_Log</div>
+        <div class="credential-card">
+            <div class="title">B.Tech in Electronics & Communication</div>
+            <div class="org">Major: VLSI Design & Embedded Systems</div>
+            <div class="status-tag">IN_PROGRESS</div>
+            <p style="font-size: 0.85rem; margin-top: 15px; color: var(--data-cyan);">
+                Transitioning to EC B.Tech focus following completion of CE Diploma.
+            </p>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
