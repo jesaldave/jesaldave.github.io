@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Resources | Jesal Dave</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #09090b; --surface: #121214; --surface-hover: #1c1c1f; --text: #ededed; --dim: #a1a1aa; --accent: #3b82f6; --border: #27272a; --font-body: 'Inter', sans-serif; --font-code: 'JetBrains Mono', monospace; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--text); font-family: var(--font-body); min-height: 100vh; }
+        body::before { content: ""; position: fixed; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
+        #container { max-width: 900px; margin: 0 auto; padding: 60px 30px; position: relative; z-index: 10; }
+        header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+        h1 { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.5px; }
+        .exit-link { background: var(--surface); border: 1px solid var(--border); padding: 10px 20px; font-family: var(--font-code); font-size: 13px; color: var(--text); text-decoration: none; border-radius: 6px; transition: 0.2s; }
+        .exit-link:hover { background: var(--surface-hover); border-color: var(--dim); }
+        
+        .resource-list { display: grid; grid-template-columns: 1fr; gap: 15px; }
+        .resource-item { display: flex; justify-content: space-between; align-items: center; padding: 20px; border: 1px solid var(--border); background: var(--surface); border-radius: 8px; transition: 0.2s; }
+        .resource-item:hover { border-color: var(--dim); }
+        .resource-item a { color: var(--accent); text-decoration: none; font-family: var(--font-code); font-size: 14px; font-weight: 500; }
+        .resource-item a:hover { text-decoration: underline; }
+        .type-tag { font-size: 10px; background: #000; padding: 2px 6px; border-radius: 4px; color: var(--dim); margin-left: 10px; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>Hardware & EC Library</h1>
+            <a href="index.html" class="exit-link">Return Home</a>
+        </header>
+
+        <div class="resource-list">
+            <div class="resource-item"><span>TinyUSB + STM32 Tutorial (USB CDC) - Phil's Lab #168</span> <a href="https://www.youtube.com/watch?v=XgsnJdY8LsY" target="_blank">Watch ↗</a><span class="type-tag">Video</span></div>
+            <div class="resource-item"><span>STM32 USB 2.0 High-Speed Tutorial - Phil's Lab #167</span> <a href="https://www.youtube.com/watch?v=b6WIETPXQJc" target="_blank">Watch ↗</a><span class="type-tag">Video</span></div>
+            <div class="resource-item"><span>KiCad Tutorial with STM32 (Part 1)</span> <a href="https://www.youtube.com/watch?v=9p_kQVLaJKg" target="_blank">Watch ↗</a><span class="type-tag">Video</span></div>
+            <div class="resource-item"><span>Programming my 8-bit breadboard computer (Ben Eater)</span> <a href="https://www.youtube.com/watch?v=9PPrrSyubG0" target="_blank">Watch ↗</a><span class="type-tag">Video</span></div>
+            <div class="resource-item"><span>Build an 8-bit decimal display (Ben Eater)</span> <a href="https://www.youtube.com/watch?v=dLh1n2dErzE" target="_blank">Watch ↗</a><span class="type-tag">Video</span></div>
+            <div class="resource-item"><span>Hello World from scratch on a 6502 (Ben Eater)</span> <a href="https://www.youtube.com/watch?v=LnzuROEXpzI" target="_blank">Watch ↗</a><span class="type-tag">Video</span></div>
+            <div class="resource-item"><span>555 LED Flasher design & Breadboards</span> <a href="https://www.youtube.com/watch?v=4x7pmiOco7U" target="_blank">Watch ↗</a><span class="type-tag">Video</span></div>
+            <div class="resource-item"><span>EEVblog #180 - Soldering Tutorial Part 1 - Tools</span> <a href="https://www.youtube.com/watch?v=J5Sb21qbpEQ" target="_blank">Watch ↗</a><span class="type-tag">Video</span></div>
+            <div class="resource-item"><span>EEVblog #183 - Soldering Tutorial Part 2</span> <a href="https://www.youtube.com/watch?v=fYz5nIHH0iY" target="_blank">Watch ↗</a><span class="type-tag">Video</span></div>
+            <div class="resource-item"><span>EEVblog #431 - PCB Wave Soldering</span> <a href="https://www.youtube.com/watch?v=ntxIdJTygIE" target="_blank">Watch ↗</a><span class="type-tag">Video</span></div>
+            <div class="resource-item"><span>EEVblog #1064 - Soldering Irons OLD vs NEW</span> <a href="https://www.youtube.com/watch?v=scvS2yeUH00" target="_blank">Watch ↗</a><span class="type-tag">Video</span></div>
+            <div class="resource-item"><span>Electronic Basics #18: DC & Brushless DC Motor (GreatScott!)</span> <a href="https://www.youtube.com/watch?v=UteZJ_7C4Mg" target="_blank">Watch ↗</a><span class="type-tag">Video</span></div>
+            <div class="resource-item"><span>UART vs I2C vs SPI: Serial Communication</span> <a href="https://www.youtube.com/watch?v=cD_RyTCNf9c" target="_blank">Watch ↗</a><span class="type-tag">Video</span></div>
+            <div class="resource-item"><span>Inside the CPU - Computerphile</span> <a href="https://www.youtube.com/watch?v=IAkj32VPcUE" target="_blank">Watch ↗</a><span class="type-tag">Video</span></div>
+            <div class="resource-item"><span>How does CPU pipelining WORK???</span> <a href="https://www.youtube.com/watch?v=uhoMPx1oJdM" target="_blank">Watch ↗</a><span class="type-tag">Video</span></div>
+            
+            <div class="resource-item"><span>Fetch Decode Execute Cycle in more detail</span> <a href="https://www.youtube.com/watch?v=jFDMZpkUWCw" target="_blank">Watch ↗</a><span class="type-tag">Video</span></div>
+            <div class="resource-item"><span>How to Solder properly || THT & SMD</span> <a href="https://www.youtube.com/watch?v=VxMV6wGS3NY" target="_blank">Watch ↗</a><span class="type-tag">Video</span></div>
+            <div class="resource-item"><span>Quick & Dirty Method for Soldering Surface Mount Chips</span> <a href="https://www.youtube.com/watch?v=YNJkChLlpFs" target="_blank">Watch ↗</a><span class="type-tag">Video</span></div>
+            <div class="resource-item"><span>Ben Eater's 8 Bit Computer (SAP-1) in an FPGA</span> <a href="https://www.youtube.com/watch?v=sa1id9DIick" target="_blank">Watch ↗</a><span class="type-tag">Video</span></div>
+            <div class="resource-item"><span>How Transistors Work - The Engineering Mindset</span> <a href="https://www.youtube.com/watch?v=CQtSS6g00h0" target="_blank">Watch ↗</a><span class="type-tag">Video</span></div>
+        </div>
+    </div>
+</body>
+</html>
