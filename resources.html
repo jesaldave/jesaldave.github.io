@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Resources | Jesal Dave</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #09090b; --surface: #121214; --surface-hover: #1c1c1f; --text: #ededed; --dim: #a1a1aa; --accent: #3b82f6; --border: #27272a; --font-body: 'Inter', sans-serif; --font-code: 'JetBrains Mono', monospace; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--text); font-family: var(--font-body); min-height: 100vh; }
+        body::before { content: ""; position: fixed; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
+        #container { max-width: 1400px; margin: 0 auto; padding: 60px 30px; position: relative; z-index: 10; }
+        header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+        h1 { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.5px; }
+        .exit-link { background: var(--surface); border: 1px solid var(--border); padding: 10px 20px; font-family: var(--font-code); font-size: 13px; color: var(--text); text-decoration: none; border-radius: 6px; transition: 0.2s; }
+        .exit-link:hover { background: var(--surface-hover); border-color: var(--dim); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .vid-wrapper { background: #000; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; aspect-ratio: 16/9; transition: 0.3s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+        .vid-wrapper:hover { border-color: #3f3f46; transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.8); }
+        iframe { width: 100%; height: 100%; border: none; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>Hardware & EC Library</h1>
+            <a href="index.html" class="exit-link">Return Home</a>
+        </header>
+        <p style="margin-bottom: 40px; font-size: 16px; color: var(--dim);">A curated collection of 20 high-quality video resources covering STM32 Bare-Metal programming, PCB Design, Processor Architecture, and fundamental Electronics.</p>
+        <div class="grid">
+            <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/C7-WJNXGsZo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/HyznrdDSSGM" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/sI5Ftm1-jik" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/3w6PebDvcqw" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/F321087yYy4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/LnzuROEXpzI" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/Zg1-FkFmQ2g" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/JPEGuO5wG7E" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/lOQ5Ea020j4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/IcrBqCFLHIY" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/mJLhoAqL-B0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/AWiU0T4k8vU" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/QO5FgM7MLGg" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/zH3E92N0Bq4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/4bT86bZ4G1k" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/aVUqaB0IMh4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/P6P8aE2_0D8" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/lTzY-H6WcEE" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/Fw9RMB3QnBc" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div class="vid-wrapper"><iframe src="https://www.youtube.com/embed/q1sHgBcOdXo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+        </div>
+    </div>
+</body>
+</html>

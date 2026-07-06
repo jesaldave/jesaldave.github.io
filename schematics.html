@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schematics | Jesal Dave</title>
+    <meta name="referrer" content="no-referrer"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #09090b; --surface: #121214; --surface-hover: #1c1c1f;
+            --text: #ededed; --dim: #a1a1aa; --accent: #3b82f6; --border: #27272a;
+            --font-body: 'Inter', sans-serif; --font-code: 'JetBrains Mono', monospace;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--text); font-family: var(--font-body); min-height: 100vh; }
+        body::before {
+            content: ""; position: fixed; inset: 0;
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px; pointer-events: none; z-index: 0;
+        }
+        #container { max-width: 1200px; margin: 0 auto; padding: 60px 30px; position: relative; z-index: 10; }
+        header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+        h1 { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.5px; }
+        .exit-link { background: var(--surface); border: 1px solid var(--border); padding: 10px 20px; font-family: var(--font-code); font-size: 13px; color: var(--text); text-decoration: none; border-radius: 6px; transition: 0.2s; }
+        .exit-link:hover { background: var(--surface-hover); border-color: var(--dim); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .sch-card { background: rgba(18, 18, 20, 0.7); border: 1px solid var(--border); border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; padding: 0; transition: 0.3s; backdrop-filter: blur(10px); }
+        .sch-card:hover { border-color: #3f3f46; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.5); }
+        .img-container { width: 100%; height: 220px; background: #ffffff; display: flex; align-items: center; justify-content: center; padding: 20px; border-bottom: 1px solid var(--border); }
+        .img-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .info { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .info h3 { font-size: 1.2rem; margin-bottom: 10px; font-weight: 700; }
+        .info p { font-size: 14px; color: var(--dim); margin-bottom: 20px; line-height: 1.6; }
+        .btn { background: var(--surface); border: 1px solid var(--border); padding: 8px 15px; font-family: var(--font-code); font-size: 12px; color: var(--text); cursor: pointer; border-radius: 6px; transition: 0.2s; }
+        .btn:hover { background: var(--surface-hover); border-color: var(--dim); }
+        #modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(8px); }
+        .modal-content { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; max-width: 800px; width: 100%; padding: 40px; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .close-modal { position: absolute; top: 20px; right: 20px; font-size: 28px; color: var(--dim); border: none; background: transparent; cursor: pointer; transition: 0.2s; }
+        .close-modal:hover { color: #fff; }
+        .modal-title { font-size: 2rem; font-weight: 700; margin-bottom: 20px; }
+        .modal-body { font-size: 16px; color: #cccccc; line-height: 1.7; }
+        .modal-body img { max-width: 100%; background: #ffffff; padding: 15px; margin-bottom: 25px; border-radius: 8px; }
+        .modal-body p { margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>Circuit Schematics</h1>
+            <a href="index.html" class="exit-link">Return Home</a>
+        </header>
+        <p style="margin-bottom: 40px; font-size: 16px; color: var(--dim);">A reference collection of fundamental hardware circuits and topologies.</p>
+        <div class="grid">
+            <div class="sch-card">
+                <div class="img-container"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Buck_operating.svg/800px-Buck_operating.svg.png" alt="Buck Converter"></div>
+                <div class="info">
+                    <div><h3>DC-DC Buck Converter</h3><p>Step-down switching regulator topology for efficient voltage reduction.</p></div>
+                    <button class="btn" onclick="openModal('buck')">View Details</button>
+                </div>
+            </div>
+            <div class="sch-card">
+                <div class="img-container"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Boost_operating.svg/800px-Boost_operating.svg.png" alt="Boost Converter"></div>
+                <div class="info">
+                    <div><h3>DC-DC Boost Converter</h3><p>Step-up switching power supply utilizing inductor energy storage.</p></div>
+                    <button class="btn" onclick="openModal('boost')">View Details</button>
+                </div>
+            </div>
+            <div class="sch-card">
+                <div class="img-container"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/555_Astable_Diagram.svg/800px-555_Astable_Diagram.svg.png" alt="555 Timer"></div>
+                <div class="info">
+                    <div><h3>555 Astable Multivibrator</h3><p>Classic square wave oscillator circuit with adjustable duty cycle.</p></div>
+                    <button class="btn" onclick="openModal('timer555')">View Details</button>
+                </div>
+            </div>
+            <div class="sch-card">
+                <div class="img-container"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Op-Amp_Inverting_Amplifier.svg/800px-Op-Amp_Inverting_Amplifier.svg.png" alt="Inverting Op-Amp"></div>
+                <div class="info">
+                    <div><h3>Inverting Amplifier</h3><p>Standard Operational Amplifier configuration for negative gain scaling.</p></div>
+                    <button class="btn" onclick="openModal('inverting')">View Details</button>
+                </div>
+            </div>
+            <div class="sch-card">
+                <div class="img-container"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/1st_Order_Lowpass_Filter_RC.svg/800px-1st_Order_Lowpass_Filter_RC.svg.png" alt="Low Pass Filter"></div>
+                <div class="info">
+                    <div><h3>1st Order Low-Pass Filter</h3><p>Passive RC network designed to attenuate high-frequency signals.</p></div>
+                    <button class="btn" onclick="openModal('lowpass')">View Details</button>
+                </div>
+            </div>
+            <div class="sch-card">
+                <div class="img-container"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/High_pass_filter.svg/800px-High_pass_filter.svg.png" alt="High Pass Filter"></div>
+                <div class="info">
+                    <div><h3>1st Order High-Pass Filter</h3><p>RC network used to block DC components and pass high frequencies.</p></div>
+                    <button class="btn" onclick="openModal('highpass')">View Details</button>
+                </div>
+            </div>
+            <div class="sch-card">
+                <div class="img-container"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/H_bridge_operating.svg/800px-H_bridge_operating.svg.png" alt="H-Bridge"></div>
+                <div class="info">
+                    <div><h3>H-Bridge Motor Driver</h3><p>Switching array enabling bidirectional DC motor control.</p></div>
+                    <button class="btn" onclick="openModal('hbridge')">View Details</button>
+                </div>
+            </div>
+            <div class="sch-card">
+                <div class="img-container"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Opamp_schmitt_trigger.svg/800px-Opamp_schmitt_trigger.svg.png" alt="Schmitt Trigger"></div>
+                <div class="info">
+                    <div><h3>Schmitt Trigger</h3><p>Comparator circuit with positive feedback hysteresis for noise immunity.</p></div>
+                    <button class="btn" onclick="openModal('schmitt')">View Details</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal"><div class="modal-content"><button class="close-modal" onclick="closeModal()">×</button><h2 class="modal-title" id="modal-title"></h2><div class="modal-body" id="modal-body"></div></div></div>
+    <script>
+        const circuits = {
+            'buck': { title: 'DC-DC Buck Converter', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Buck_operating.svg/800px-Buck_operating.svg.png', desc: '<p>A buck converter is a DC-to-DC power converter which steps down voltage from its input to its output. It is a class of switched-mode power supply (SMPS) typically containing at least two semiconductors (a diode and a transistor) and at least one energy storage element, a capacitor, inductor, or the two in combination.</p><p>When the switch is ON, the inductor charges and opposes the current flow, supplying the load. When the switch is OFF, the inductor releases its stored energy to the load through the flyback diode.</p>' },
+            'boost': { title: 'DC-DC Boost Converter', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Boost_operating.svg/800px-Boost_operating.svg.png', desc: '<p>A boost converter is a DC-to-DC power converter that steps up voltage while stepping down current from its input to its output. When the switch is closed, current flows through the inductor, storing magnetic energy. When the switch opens, the inductor field collapses, generating a high voltage spike pushed through the diode.</p>' },
+            'timer555': { title: '555 Astable Multivibrator', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/555_Astable_Diagram.svg/800px-555_Astable_Diagram.svg.png', desc: '<p>The 555 timer IC configured in astable mode acts as an oscillator, outputting a continuous stream of rectangular pulses. The frequency and duty cycle of the output are determined by two external resistors (R1 and R2) and one capacitor (C).</p><p>The capacitor charges through R1 and R2, and discharges only through R2. The internal comparators of the 555 trigger the flip-flop when the capacitor voltage crosses 1/3 Vcc and 2/3 Vcc.</p>' },
+            'inverting': { title: 'Op-Amp Inverting Amplifier', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Op-Amp_Inverting_Amplifier.svg/800px-Op-Amp_Inverting_Amplifier.svg.png', desc: '<p>In an inverting amplifier, the input signal is applied to the inverting (-) terminal via an input resistor (Rin). A feedback resistor (Rf) connects the output back to the inverting terminal. The non-inverting (+) terminal is grounded.</p><p>Due to the virtual ground rule, the gain (Av) is calculated simply as -(Rf / Rin). The output is 180 degrees out of phase with the input.</p>' },
+            'lowpass': { title: '1st Order RC Low-Pass Filter', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/1st_Order_Lowpass_Filter_RC.svg/800px-1st_Order_Lowpass_Filter_RC.svg.png', desc: '<p>A passive low-pass filter passes signals with a frequency lower than a selected cutoff frequency and attenuates signals with frequencies higher than the cutoff frequency. The cutoff frequency (fc) is determined by the formula: fc = 1 / (2 * pi * R * C).</p><p>This is commonly used in DAC smoothing, audio filtering, and removing high-frequency noise from sensor readings before entering an ADC.</p>' },
+            'highpass': { title: '1st Order RC High-Pass Filter', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/High_pass_filter.svg/800px-High_pass_filter.svg.png', desc: '<p>An RC high-pass filter is formed by placing a capacitor in series with the signal path, and a resistor in parallel with the load. It passes signals with a frequency higher than a certain cutoff frequency and attenuates signals with frequencies lower than that cutoff frequency.</p>' },
+            'hbridge': { title: 'H-Bridge Motor Driver', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/H_bridge_operating.svg/800px-H_bridge_operating.svg.png', desc: '<p>An H-bridge is an electronic circuit that switches the polarity of a voltage applied to a load. These circuits are often used in robotics and other applications to allow DC motors to run forwards or backwards.</p><p>By turning on diagonal pairs of switches (e.g., S1 & S4, or S2 & S3), the current flows through the motor in opposite directions. Turning on both top switches or both bottom switches acts as an active brake.</p>' },
+            'schmitt': { title: 'Op-Amp Schmitt Trigger', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Opamp_schmitt_trigger.svg/800px-Opamp_schmitt_trigger.svg.png', desc: '<p>A Schmitt trigger is a comparator circuit with hysteresis implemented by applying positive feedback to the non-inverting input of a comparator or differential amplifier.</p><p>It is used to convert a noisy or slowly changing analog signal into a clean, sharp digital output. When the input is higher than a chosen upper threshold, the output is HIGH. It stays high until the input drops below a lower threshold.</p>' }
+        };
+        window.openModal = function(id) {
+            const data = circuits[id];
+            if(!data) return;
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-body').innerHTML = `<img src="${data.img}" alt="${data.title}">${data.desc}`;
+            document.getElementById('modal').style.display = 'flex';
+        };
+        window.closeModal = function() { document.getElementById('modal').style.display = 'none'; };
+    </script>
+</body>
+</html>

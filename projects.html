@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Jesal Dave</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        
+        /* --- PREMIUM DARK MODE THEME --- */
+        :root {
+            --bg: #09090b; /* Deep Vercel/Linear Dark */
+            --surface: #121214;
+            --surface-hover: #1c1c1f;
+            --text: #ededed;
+            --dim: #a1a1aa;
+            --accent: #3b82f6; /* Clean Tech Blue */
+            --border: #27272a;
+            --font-body: 'Inter', sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: var(--font-body); 
+            font-size: 16px; 
+            line-height: 1.7;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, .branding, .title { font-family: var(--font-body); font-weight: 700; letter-spacing: -0.5px; }
+        nav a { font-family: var(--font-body); }
+        code, pre, .tag, .meta { font-family: var(--font-code); }
+
+        /* Faint White Technical Grid Background */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Standard Buttons */
+        .btn, .exit-link, .btn-explain {
+            display: inline-block;
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 10px 20px;
+            font-family: var(--font-code);
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: 0.2s ease;
+            cursor: pointer;
+        }
+        .btn:hover, .exit-link:hover, .btn-explain:hover {
+            background: var(--surface-hover);
+            border-color: var(--dim);
+        }
+
+        /* Premium Cards */
+        .card-raw {
+            border: 1px solid var(--border);
+            background: rgba(18, 18, 20, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            border-radius: 12px; 
+            transition: 0.3s ease;
+        }
+        .card-raw:hover {
+            border-color: #3f3f46;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Syntax Highlighting */
+        .keyword { color: #569cd6; font-weight: bold; }
+        .type { color: #4ec9b0; } 
+        .num { color: #b5cea8; } 
+        .comment { color: #6a9955; font-style: italic; } 
+        .string { color: #ce9178; } 
+        .func { color: #dcdcaa; } 
+        .macro { color: #c586c0; }
+
+        #container { max-width: 1000px; margin: 0 auto; padding: 60px 30px; position: relative; z-index: 10; }
+        header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+        h1 { font-size: 2.5rem; }
+        
+        .grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
+        .title { font-size: 1.6rem; margin-bottom: 10px; color: #fff; }
+        .tag { font-size: 11px; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; display: inline-block; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
+        .desc { font-size: 15px; color: #bbbbbb; }
+        .desc p { margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>Projects & Studies</h1>
+            <a href="index.html" class="exit-link">Return Home</a>
+        </header>
+
+        <div class="grid">
+            <div class="card-raw">
+                <div class="title">STM32L432KC Exploration & Bare-Metal Architecture</div>
+                <div class="tag">Active Study | Bare-Metal Programming | ARM Cortex-M4</div>
+                <div class="desc">
+                    <p>My ongoing primary focus is mastering the STM32 architecture, specifically the STM32L432KC. I intentionally bypass high-level abstraction layers like the STM32 HAL to write pure, bare-metal C code.</p>
+                    <p>This study involves deep-diving into reference manuals to manipulate raw memory-mapped registers. I configure peripheral clocks via the RCC, set up GPIO modes, and manage nested vector interrupts (NVIC) from scratch. This granular approach ensures a complete understanding of how the ARM Cortex-M4 core interacts with silicon peripherals.</p>
+                </div>
+            </div>
+            
+            <div class="card-raw">
+                <div class="title">Custom STM32 Breakout & PCB Prototyping</div>
+                <div class="tag">Hardware Prototyping | KiCad | PCB Routing</div>
+                <div class="desc">
+                    <p>As part of my transition into deep hardware engineering, I am designing custom breakout boards for microcontrollers like the STM32F411 using KiCad.</p>
+                    <p>This project focuses on the physical constraints of circuit design—understanding signal integrity, proper trace width calculations for power delivery, decoupling capacitor placement, and routing SWD (Serial Wire Debug) and UART headers for seamless bare-metal flashing and debugging.</p>
+                </div>
+            </div>
+            
+            <div class="card-raw">
+                <div class="title">Analog & Digital Signal Processing (DSP)</div>
+                <div class="tag">Learning | EC Core Curriculum | Filtering</div>
+                <div class="desc">
+                    <p>As part of my Electronics & Communication core curriculum, I am building a strong foundation in Signal Processing across both physical analog and discrete digital domains.</p>
+                    <p>I explore the mathematics behind the Nyquist sampling theorem, design active low-pass and high-pass filters using Op-Amps, and translate those concepts into digital IIR/FIR filter code capable of running on STM32 DSP instruction sets.</p>
+                </div>
+            </div>
+
+            <div class="card-raw">
+                <div class="title">Hardware Reverse-Engineering & Analysis</div>
+                <div class="tag">Reverse Engineering | Circuit Decryption | BOM Analysis</div>
+                <div class="desc">
+                    <p>As a core contributor to the LocalForge community, I actively participate in the teardown and analysis of high-volume consumer electronics, primarily focusing on power delivery circuits like high-speed chargers.</p>
+                    <p>This involves non-destructive teardowns, tracing complex PCB layouts, measuring gate-drive signals with oscilloscopes, and determining the exact logic used in protection stages. The ultimate goal is to understand how these systems are cost-optimized for mass manufacturing and to establish baselines for local redesigns.</p>
+                </div>
+            </div>
+
+            <div class="card-raw">
+                <div class="title">AT89C51 Assembly & Fundamentals</div>
+                <div class="tag">Learning | Microcontroller Architecture | Assembly</div>
+                <div class="desc">
+                    <p>To understand how code executes at the silicon level, I write raw Assembly code for the classic 8051 architecture (specifically the AT89C51). This acts as a foundation for understanding instruction cycles, program counters, and stack pointers.</p>
+                    <p>Exercises include bit-banging I/O ports, configuring internal hardware timers without C-compiler safety nets, and understanding how the accumulator and general-purpose registers move data across internal buses.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

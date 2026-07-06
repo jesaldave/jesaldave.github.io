@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Jesal Dave</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        
+        /* --- PREMIUM DARK MODE THEME --- */
+        :root {
+            --bg: #09090b; /* Deep Vercel/Linear Dark */
+            --surface: #121214;
+            --surface-hover: #1c1c1f;
+            --text: #ededed;
+            --dim: #a1a1aa;
+            --accent: #3b82f6; /* Clean Tech Blue */
+            --border: #27272a;
+            --font-body: 'Inter', sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: var(--font-body); 
+            font-size: 16px; 
+            line-height: 1.7;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, .branding, .title { font-family: var(--font-body); font-weight: 700; letter-spacing: -0.5px; }
+        nav a { font-family: var(--font-body); }
+        code, pre, .tag, .meta { font-family: var(--font-code); }
+
+        /* Faint White Technical Grid Background */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Standard Buttons */
+        .btn, .exit-link, .btn-explain {
+            display: inline-block;
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 10px 20px;
+            font-family: var(--font-code);
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: 0.2s ease;
+            cursor: pointer;
+        }
+        .btn:hover, .exit-link:hover, .btn-explain:hover {
+            background: var(--surface-hover);
+            border-color: var(--dim);
+        }
+
+        /* Premium Cards */
+        .card-raw {
+            border: 1px solid var(--border);
+            background: rgba(18, 18, 20, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            border-radius: 12px; 
+            transition: 0.3s ease;
+        }
+        .card-raw:hover {
+            border-color: #3f3f46;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Syntax Highlighting */
+        .keyword { color: #569cd6; font-weight: bold; }
+        .type { color: #4ec9b0; } 
+        .num { color: #b5cea8; } 
+        .comment { color: #6a9955; font-style: italic; } 
+        .string { color: #ce9178; } 
+        .func { color: #dcdcaa; } 
+        .macro { color: #c586c0; }
+
+        
+        #container { max-width: 900px; margin: 0 auto; padding: 60px 30px; position: relative; z-index: 10; }
+        header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+        h1 { font-size: 2.5rem; }
+
+        h2 { font-size: 1.5rem; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; color: #fff; }
+        p { font-size: 16px; color: #cccccc; margin-bottom: 15px; line-height: 1.8; }
+        
+        ul { padding-left: 20px; color: #cccccc; font-size: 15px; line-height: 1.8; margin-bottom: 15px; }
+        li { margin-bottom: 12px; }
+        strong { color: var(--accent); }
+        
+        .tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+        .skill-tag { background: rgba(59, 130, 246, 0.1); border: 1px solid var(--accent); color: var(--accent); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-family: var(--font-code); }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>Profile</h1>
+            <a href="index.html" class="exit-link">Return Home</a>
+        </header>
+
+        <div class="card-raw" style="margin-bottom: 40px;">
+            <h2>Executive Summary</h2>
+            <p>I am Jesal Dave, an <strong>Aspiring VLSI Design Engineer</strong> based in Gujarat, India. I specialize in bridging the critical gap between highly optimized, low-level hardware design and scalable cloud infrastructure.</p>
+            <p>I am currently pursuing my B.Tech in Electronics and Communication (EC) Engineering, having successfully transitioned from a Diploma in Computer Engineering. This dual background provides me with a unique perspective: I understand both the constraints of physical silicon and the expansive architecture of high-level software ecosystems.</p>
+            
+            <div class="tag-cloud">
+                <span class="skill-tag">VLSI Architecture</span>
+                <span class="skill-tag">Bare-Metal C (STM32/ARM)</span>
+                <span class="skill-tag">PCB Routing (KiCad/EasyEDA)</span>
+                <span class="skill-tag">Hardware Prototyping</span>
+                <span class="skill-tag">AWS Cloud Integration</span>
+                <span class="skill-tag">I2C / SPI / UART</span>
+            </div>
+        </div>
+
+        <div class="card-raw" style="margin-bottom: 40px;">
+            <h2>Experience, Certifications & Community</h2>
+            <ul>
+                <li><strong>AWS Certified Cloud Practitioner</strong><br> Validated capability to architect and connect physical hardware endpoints securely to robust cloud infrastructure. Active member of the AWS Emerging Talent Community.</li>
+                <li><strong>Core Contributor @ LocalForge</strong><br> Highly engaged in a collective dedicated to the "Made in India" hardware initiative. I actively contribute to the reverse engineering of high-volume electronics to analyze IC logic and prototype affordable, locally manufactured PCB alternatives.</li>
+            </ul>
+        </div>
+
+        <div class="card-raw">
+            <h2>Core Competencies & Studies</h2>
+            <p>As I advance through my B.Tech curriculum, my day-to-day focus revolves around deep EC fundamentals and practical engineering tools:</p>
+            <ul>
+                <li><strong>Hardware Design:</strong> Proficient in drafting schematics and routing complex PCB layouts using KiCad and EasyEDA. Capable of designing custom 3D printed enclosures for hardware prototypes.</li>
+                <li><strong>Microcontroller Architecture:</strong> Extensive bare-metal programming experience on STM32 (L432KC, F411) platforms, as well as Arduino environments, focusing heavily on direct register manipulation to maximize execution speed.</li>
+                <li><strong>Analog & Digital Systems:</strong> Actively studying Analog Circuits, Digital Signal Processing (DSP), and classic processor instruction sets (8051/8085) to build a robust theoretical foundation for future VLSI specialization.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firmware | Jesal Dave</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        
+        /* --- PREMIUM DARK MODE THEME --- */
+        :root {
+            --bg: #09090b; /* Deep Vercel/Linear Dark */
+            --surface: #121214;
+            --surface-hover: #1c1c1f;
+            --text: #ededed;
+            --dim: #a1a1aa;
+            --accent: #3b82f6; /* Clean Tech Blue */
+            --border: #27272a;
+            --font-body: 'Inter', sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: var(--font-body); 
+            font-size: 16px; 
+            line-height: 1.7;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, .branding, .title { font-family: var(--font-body); font-weight: 700; letter-spacing: -0.5px; }
+        nav a { font-family: var(--font-body); }
+        code, pre, .tag, .meta { font-family: var(--font-code); }
+
+        /* Faint White Technical Grid Background */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Standard Buttons */
+        .btn, .exit-link, .btn-explain {
+            display: inline-block;
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 10px 20px;
+            font-family: var(--font-code);
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: 0.2s ease;
+            cursor: pointer;
+        }
+        .btn:hover, .exit-link:hover, .btn-explain:hover {
+            background: var(--surface-hover);
+            border-color: var(--dim);
+        }
+
+        /* Premium Cards */
+        .card-raw {
+            border: 1px solid var(--border);
+            background: rgba(18, 18, 20, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 35px;
+            border-radius: 12px; 
+            transition: 0.3s ease;
+        }
+        .card-raw:hover {
+            border-color: #3f3f46;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+            transform: translateY(-2px);
+        }
+
+        /* Syntax Highlighting */
+        .keyword { color: #569cd6; font-weight: bold; }
+        .type { color: #4ec9b0; } 
+        .num { color: #b5cea8; } 
+        .comment { color: #6a9955; font-style: italic; } 
+        .string { color: #ce9178; } 
+        .func { color: #dcdcaa; } 
+        .macro { color: #c586c0; }
+
+        
+        #container { max-width: 1000px; margin: 0 auto; padding: 60px 30px; position: relative; z-index: 10; }
+        header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+        h1 { font-size: 2.5rem; }
+
+        .code-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+        .code-title { font-size: 1.3rem; font-weight: 700; }
+        
+        /* Premium Code Block */
+        pre { 
+            background: #000000; 
+            padding: 25px; 
+            border: 1px solid var(--border); 
+            border-radius: 8px;
+            overflow-x: auto; 
+            font-size: 14px; 
+            line-height: 1.6; 
+            color: #d4d4d4; 
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+        }
+        
+        .explanation { 
+            display: none; 
+            background: rgba(59, 130, 246, 0.05); 
+            border: 1px solid var(--border); 
+            border-left: 4px solid var(--accent); 
+            padding: 25px; 
+            margin-top: 20px; 
+            font-size: 15px; 
+            color: #e4e4e7; 
+            border-radius: 0 8px 8px 0;
+            line-height: 1.7;
+        }
+        .explanation.active { display: block; animation: fadeIn 0.3s ease; }
+        .explanation strong { color: #fff; display: block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>Firmware Codes</h1>
+            <a href="index.html" class="exit-link">Return Home</a>
+        </header>
+
+        <!-- UART -->
+        <div class="card-raw" style="margin-bottom:40px;">
+            <div class="code-header">
+                <div class="code-title">STM32L432KC: Bare-Metal UART2 Configuration</div>
+                <button class="btn-explain" onclick="toggleExplain('exp_uart')">Explain Code</button>
+            </div>
+            <pre>
+<span class="comment">// Enable USART2 and GPIOA Clocks</span>
+RCC->APB1ENR1 |= RCC_APB1ENR1_USART2EN;
+RCC->AHB2ENR |= RCC_AHB2ENR_GPIOAEN;
+
+<span class="comment">// Configure PA2 as Alternate Function (TX)</span>
+GPIOA->MODER &amp;= ~(<span class="num">3U</span> &lt;&lt; (<span class="num">2</span> * <span class="num">2</span>));
+GPIOA->MODER |= (<span class="num">2U</span> &lt;&lt; (<span class="num">2</span> * <span class="num">2</span>));
+
+<span class="comment">// Set Alternate Function 7 (AF7) for PA2 which maps to USART2_TX</span>
+GPIOA->AFR[<span class="num">0</span>] &amp;= ~(<span class="num">0xFU</span> &lt;&lt; (<span class="num">2</span> * <span class="num">4</span>));
+GPIOA->AFR[<span class="num">0</span>] |= (<span class="num">7U</span> &lt;&lt; (<span class="num">2</span> * <span class="num">4</span>));
+
+<span class="comment">// Assuming a 4MHz system clock, configure baud rate to 9600</span>
+USART2->BRR = <span class="num">4000000</span> / <span class="num">9600</span>;
+
+<span class="comment">// Enable USART, Transmitter, and Receiver</span>
+USART2->CR1 |= USART_CR1_TE | USART_CR1_RE | USART_CR1_UE;
+
+<span class="comment">// Transmit a character</span>
+<span class="keyword">while</span>(!(USART2->ISR & USART_ISR_TXE));
+USART2->TDR = <span class="string">'A'</span>;</pre>
+            <div id="exp_uart" class="explanation">
+                <strong>Execution Theory</strong>
+                Setting up UART without HAL requires routing the internal USART peripheral to a physical pin using the Alternate Function Register (AFR). We first enable the APB1 clock for USART2 and AHB2 for GPIOA. We configure PA2 into Alternate Function mode and specifically assign it AF7, which is the hardware map for USART2_TX. We then calculate the baud rate by dividing our core clock frequency (4MHz) by our desired baud rate (9600) and inserting it into the BRR register. Finally, we enable the transmitter (TE) and the peripheral (UE). To send data, we wait for the Transmit Data Register Empty (TXE) flag before loading a character into TDR.
+            </div>
+        </div>
+
+        <!-- SPI -->
+        <div class="card-raw" style="margin-bottom:40px;">
+            <div class="code-header">
+                <div class="code-title">STM32L432KC: Bare-Metal SPI1 Master Initialization</div>
+                <button class="btn-explain" onclick="toggleExplain('exp_spi')">Explain Code</button>
+            </div>
+            <pre>
+<span class="comment">// Enable SPI1 Clock via APB2</span>
+RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;
+
+<span class="comment">// Reset Control Register 1</span>
+SPI1->CR1 = <span class="num">0</span>; 
+
+<span class="comment">// Configure SPI1: Master Mode, Baud Rate = fPCLK/16</span>
+SPI1->CR1 |= SPI_CR1_MSTR | (<span class="num">3</span> &lt;&lt; SPI_CR1_BR_Pos); 
+
+<span class="comment">// Configure CR2: 8-bit data size, Software Slave Management Output Enable</span>
+SPI1->CR2 = <span class="num">0</span>;
+SPI1->CR2 |= (<span class="num">7</span> &lt;&lt; SPI_CR2_DS_Pos) | SPI_CR2_SSOE;
+
+<span class="comment">// Enable Software Slave Management and set Internal Slave Select high</span>
+SPI1->CR1 |= SPI_CR1_SSM | SPI_CR1_SSI;
+
+<span class="comment">// Enable the SPI peripheral</span>
+SPI1->CR1 |= SPI_CR1_SPE;</pre>
+            <div id="exp_spi" class="explanation">
+                <strong>Execution Theory</strong>
+                Initializing the SPI peripheral in Master mode. We first enable the clock to SPI1 via APB2. We set the Master Mode (`MSTR`) bit and configure the Baud Rate (`BR`) prescaler to divide the peripheral clock by 16. We set the Data Size (`DS`) to 8-bit (which is value 7 in the register). For flexibility, we use Software Slave Management (`SSM`) and set the Internal Slave Select (`SSI`) bit high, allowing us to manually control the Chip Select pin via a standard GPIO rather than hardware control. Finally, we enable the SPI peripheral (`SPE`).
+            </div>
+        </div>
+
+        <!-- I2C -->
+        <div class="card-raw" style="margin-bottom:40px;">
+            <div class="code-header">
+                <div class="code-title">STM32L432KC: Bare-Metal I2C1 Master Configuration</div>
+                <button class="btn-explain" onclick="toggleExplain('exp_i2c')">Explain Code</button>
+            </div>
+            <pre>
+<span class="comment">// Enable I2C1 Clock</span>
+RCC->APB1ENR1 |= RCC_APB1ENR1_I2C1EN;
+
+<span class="comment">// Disable I2C peripheral before modifying timing registers</span>
+I2C1->CR1 &amp;= ~I2C_CR1_PE;
+
+<span class="comment">// Set timing for 100kHz Standard Mode at 4MHz Core Clock</span>
+<span class="comment">// TIMINGR register configuration is highly specific (Prescaler, SCLDEL, SDAHD, etc)</span>
+I2C1->TIMINGR = <span class="num">0x00200C28</span>; 
+
+<span class="comment">// Re-enable I2C peripheral</span>
+I2C1->CR1 |= I2C_CR1_PE;
+
+<span class="comment">// To transmit: set slave address, byte count, and send START condition</span>
+I2C1->CR2 = (SlaveAddress &lt;&lt; <span class="num">1</span>) | (<span class="num">1</span> &lt;&lt; I2C_CR2_NBYTES_Pos);
+I2C1->CR2 |= I2C_CR2_START;</pre>
+            <div id="exp_i2c" class="explanation">
+                <strong>Execution Theory</strong>
+                Configuring I2C in bare-metal requires strictly disabling the peripheral (PE=0) before setting the timing register. The 32-bit hex value placed in TIMINGR is calculated based on the system clock frequency (4MHz) and defines the exact SCL high/low periods, data setup/hold times, and clock prescaler to achieve a standard 100kHz I2C bus speed. To initiate communication, we load the 7-bit slave address shifted left by 1, set the number of bytes to transfer, and trigger the START condition in CR2.
+            </div>
+        </div>
+
+        <!-- ADC -->
+        <div class="card-raw" style="margin-bottom:40px;">
+            <div class="code-header">
+                <div class="code-title">STM32L432KC: ADC Single Conversion Polling</div>
+                <button class="btn-explain" onclick="toggleExplain('exp_adc')">Explain Code</button>
+            </div>
+            <pre>
+<span class="comment">// Wake ADC and enable voltage regulator</span>
+RCC->AHB2ENR |= RCC_AHB2ENR_ADCEN;
+ADC1->CR &= ~ADC_CR_DEEPPWD;
+ADC1->CR |= ADC_CR_ADVREGEN;
+<span class="keyword">for</span>(<span class="keyword">volatile int</span> i=<span class="num">0</span>; i&lt;<span class="num">1000</span>; i++); <span class="comment">// Wait for regulator to stabilize</span>
+
+<span class="comment">// Run Calibration</span>
+ADC1->CR |= ADC_CR_ADCAL;
+<span class="keyword">while</span>(ADC1->CR & ADC_CR_ADCAL);
+
+<span class="comment">// Enable ADC</span>
+ADC1->CR |= ADC_CR_ADEN;
+<span class="keyword">while</span>(!(ADC1->ISR & ADC_ISR_ADRDY));
+
+<span class="comment">// Read Channel 5</span>
+ADC1->SQR1 = (<span class="num">5</span> &lt;&lt; ADC_SQR1_SQ1_Pos);
+ADC1->CR |= ADC_CR_ADSTART;
+<span class="keyword">while</span>(!(ADC1->ISR & ADC_ISR_EOC));
+<span class="type">uint16_t</span> result = ADC1->DR;</pre>
+            <div id="exp_adc" class="explanation">
+                <strong>Execution Theory</strong>
+                Analog to Digital initialization on the STM32 requires waking the ADC from deep power-down mode and enabling its voltage regulator. We then run an automatic internal calibration (ADCAL). Once calibrated and enabled (ADEN), we configure the regular sequence register (SQR1) to sample channel 5. Setting ADSTART begins the conversion, and we block until the End of Conversion (EOC) flag is thrown before reading the Data Register (DR).
+            </div>
+        </div>
+
+        <!-- BLINK -->
+        <div class="card-raw" style="margin-bottom:40px;">
+            <div class="code-header">
+                <div class="code-title">STM32L432KC: Bare-Metal GPIO Blink</div>
+                <button class="btn-explain" onclick="toggleExplain('exp_blink')">Explain Code</button>
+            </div>
+            <pre>
+<span class="comment">// Enable GPIOB Clock (via RCC_AHB2ENR register)</span>
+RCC->AHB2ENR |= (<span class="num">1U</span> &lt;&lt; <span class="num">1</span>);
+
+<span class="comment">// Set PB3 to General Purpose Output Mode</span>
+<span class="comment">// Clear the two mode bits first, then set bit 0</span>
+GPIOB->MODER &amp;= ~(<span class="num">3U</span> &lt;&lt; (<span class="num">3</span> * <span class="num">2</span>));
+GPIOB->MODER |= (<span class="num">1U</span> &lt;&lt; (<span class="num">3</span> * <span class="num">2</span>));
+
+<span class="keyword">while</span>(<span class="num">1</span>) {
+    <span class="comment">// XOR the Output Data Register to toggle LED state</span>
+    GPIOB->ODR ^= (<span class="num">1U</span> &lt;&lt; <span class="num">3</span>); 
+    
+    <span class="comment">// Blocking Delay</span>
+    <span class="keyword">for</span>(<span class="keyword">volatile int</span> i = <span class="num">0</span>; i &lt; <span class="num">100000</span>; i++); 
+}</pre>
+            <div id="exp_blink" class="explanation">
+                <strong>Execution Theory</strong>
+                First, we enable the clock to Port B via the Reset and Clock Control (RCC) AHB2 bus. Without this, the GPIO peripheral is dead. Next, we locate Pin 3 in the `MODER` (Mode Register) and set its 2-bit field to `01`, which defines it as an output. Finally, in an infinite loop, we use the bitwise XOR operator (`^=`) on the Output Data Register (`ODR`) to rapidly flip the bit, turning the LED on and off.
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleExplain(id) {
+            const el = document.getElementById(id);
+            if(el.classList.contains('active')) {
+                el.classList.remove('active');
+            } else {
+                el.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Logs | Jesal Dave</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #09090b; --surface: #121214; --surface-hover: #1c1c1f; --text: #ededed; --dim: #a1a1aa; --accent: #3b82f6; --border: #27272a; --font-body: 'Inter', sans-serif; --font-code: 'JetBrains Mono', monospace; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); color: var(--text); font-family: var(--font-body); min-height: 100vh; }
+        body::before { content: ""; position: fixed; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
+        #container { max-width: 800px; margin: 0 auto; padding: 60px 30px; position: relative; z-index: 10; }
+        header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 50px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+        h1 { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.5px; }
+        .exit-link { background: var(--surface); border: 1px solid var(--border); padding: 10px 20px; font-family: var(--font-code); font-size: 13px; color: var(--text); text-decoration: none; border-radius: 6px; transition: 0.2s; }
+        .exit-link:hover { background: var(--surface-hover); border-color: var(--dim); }
+        .card-raw { border: 1px solid var(--border); background: rgba(18, 18, 20, 0.7); backdrop-filter: blur(10px); padding: 35px; border-radius: 12px; transition: 0.3s ease; }
+        .log-entry { margin-bottom: 40px; }
+        .date { font-family: var(--font-code); font-size: 13px; font-weight: 700; margin-bottom: 15px; display: inline-block; color: var(--accent); border-bottom: 1px dashed var(--border); padding-bottom: 5px; }
+        .content { font-size: 15px; color: #cccccc; line-height: 1.8;}
+        .content p { margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>Daily Logs</h1>
+            <a href="index.html" class="exit-link">Return Home</a>
+        </header>
+        <p style="font-size: 15px; color: var(--dim); margin-bottom: 40px;">A running engineering diary of what I am learning, building, and fixing today.</p>
+        <div class="card-raw log-entry">
+            <div class="date">JULY 06, 2026 // 21:30 IST</div>
+            <div class="content">
+                <p>Completed a massive overhaul of my personal repository site today. Upgraded the entire layout to ensure the hardware aesthetic feels premium rather than just 'hacked together', adopting a sleek dark mode standard.</p>
+                <p>Also spent time linking up my 20 most frequently referenced YouTube tutorials into the new resources page. Makes it much easier to pull up Ben Eater's architecture videos when I need a refresher.</p>
+            </div>
+        </div>
+        <div class="card-raw log-entry">
+            <div class="date">JULY 05, 2026 // 14:15 IST</div>
+            <div class="content">
+                <p>Read up on some basic DSP sampling theorem concepts for 2nd year EC studies. Finding the math heavy, but visualizing it helps a lot. Spent the afternoon reading the STM32 reference manual for Timer interrupts.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
